@@ -7,7 +7,7 @@ function add_row() {
 
     for (var i = 1; i < columns; i++) {
         var c = row.insertCell(0); 
-        c.innerHTML = "<input type=\"text\">" ; 
+        c.innerHTML = "<input type=\"number\">" ; 
     }
 
     var c = row.insertCell(0); 
@@ -21,7 +21,7 @@ function add_column() {
 
     for (var r=0; r<rows; r++) {
         var c = table.rows[r].insertCell(columns);
-        c.innerHTML = "<input type=\"text\">"; 
+        c.innerHTML = "<input type=\"number\">"; 
     }
 }
 
