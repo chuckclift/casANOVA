@@ -5,10 +5,13 @@ function add_row() {
     var row = table.insertRow(total_rows);
     var columns = table.rows[0].children.length; 
 
-    for (var i = 0; i < columns; i++) {
+    for (var i = 1; i < columns; i++) {
         var c = row.insertCell(0); 
         c.innerHTML = "<input type=\"text\">" ; 
     }
+
+    var c = row.insertCell(0); 
+    c.innerHTML = "<p>sample " + (total_rows + 1) + "</p>" ; 
 }
 
 function add_column() {
