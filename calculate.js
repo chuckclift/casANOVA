@@ -28,10 +28,11 @@ function row_means() {
     var rows = table.rows.length; 
     var means = []; 
 
-    for (var i = 0; i < rows; i++) means.push(mean_of_row(table.rows[i], 1)); 
+    for (var i = 0; i < rows; i++) {
+        means.push(mean_of_row(table.rows[i], 1)); 
+    }
 
-
-    for (var m=0; m<means.length; m++) {console.log("mean: ", means[m]); }
+    return means; 
 }
 
 function mean_of_row(row, start) {
@@ -45,7 +46,6 @@ function mean_of_row(row, start) {
             if (parseFloat(cell)) {
                 sum += parseFloat(cell); 
                 count += 1; 
-                console.log("added: ", cell); 
             }         
     } 
     
