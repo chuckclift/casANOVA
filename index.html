@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Cas ANOVA Calculator</title>
+    <style>
+        body {
+            background-color:white; 
+        }
+        p {
+            color: black; 
+        }
+        input {
+            width:60px; 
+        }
+        td.border {
+            border:solid 10px black; 
+            background-color:#211E22;
+            vertical-align:top; 
+        }
+    </style>
+</head>
+<body>
+
+<div style="background-color:blue">
+    <table>
+        <tr>
+            <td><p style="font-size:30px">cas ANOVA Calculator</p></td>
+        <tr>
+    </table>
+</div>
+
+<table >
+    <thead>
+        <tr>
+            <td><p>category</p></td>
+        </tr>
+    </thead>
+    <tbody id="calcTable">
+        <tr>
+            <td><input type="text" value="cat1"></td>
+            <td><input type="text" value="84.4"></td>
+            <td><input type="text" value="67.9"></td> 
+            <td><input type="text" value="68.3"></td> 
+            <td><input type="text" value="62.9"></td> 
+            <td><input type="text" value="61.9"></td> 
+
+        </tr>
+    </tbody>
+</table>
+<button type="button" onclick="add_row()">add row</button>
+<script src="calculate.js"></script>
+</body>
+</html>
