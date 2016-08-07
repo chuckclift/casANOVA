@@ -54,3 +54,14 @@ function mean_of_row(row, start) {
     
     return sum / count; 
 }
+
+function std_dev(sample) {
+    var sum = 0; 
+    for (s in sample) { sum += s; }
+    var mean = sum / sample.length;
+
+
+    var stdev_sum = 0; 
+    for (s in sample) {stdev_sum += Math.pow(s - mean, 2); }
+    return Math.sqrt(stdev_sum / sample.length); 
+}
