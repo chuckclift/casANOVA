@@ -65,3 +65,13 @@ function std_dev(sample) {
     for (s in sample) {stdev_sum += Math.pow(s - mean, 2); }
     return Math.sqrt(stdev_sum / sample.length); 
 }
+
+function row_to_array(row) {
+    // Takes a table row if inputs and puts their values into
+    // an array 
+    var arr = []; 
+    for (var i=0; i < row.length; i++) {
+        arr.push(row.children[i].children[0].value); 
+    }
+    return arr; 
+}
