@@ -72,7 +72,9 @@ function row_to_array(row) {
     var arr = []; 
     for (var i=0; i < row.cells.length; i++) {
         var v = row.children[i].children[0].value;
-        if (v) { arr.push(v); }
+        if (parseFloat(v)) { arr.push(parseFloat(v)); }
     }
     return arr; 
 }
+
+
