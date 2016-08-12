@@ -70,8 +70,9 @@ function row_to_array(row) {
     // Takes a table row if inputs and puts their values into
     // an array 
     var arr = []; 
-    for (var i=0; i < row.length; i++) {
-        arr.push(row.children[i].children[0].value); 
+    for (var i=0; i < row.cells.length; i++) {
+        var v = row.children[i].children[0].value;
+        if (v) { arr.push(v); }
     }
     return arr; 
 }
