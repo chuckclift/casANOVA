@@ -1,4 +1,5 @@
 exports.std_dev = std_dev; 
+exports.grand_mean = grand_mean; 
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -68,15 +69,12 @@ function std_dev(sample) {
     return Math.sqrt(stdev_sum / (sample.length - 1)); 
 }
 
-function row_to_array(row) {
-    // Takes a table row if inputs and puts their values into
-    // an array 
-    var arr = []; 
-    for (var i=0; i < row.cells.length; i++) {
-        var v = row.children[i].children[0].value;
-        if (parseFloat(v)) { arr.push(parseFloat(v)); }
-    }
-    return arr; 
-}
+function grand_mean(data_2d) {
+    var all_values = [].concat.apply([], data_2d); 
+    
+    var sum = 0; 
+    for (var i=0; i < all_values.length; i++) { sum += all_values[i]; } 
 
+    return sum / all_values.length; 
+}
 
