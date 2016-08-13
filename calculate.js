@@ -1,3 +1,5 @@
+exports.std_dev = std_dev; 
+
 function add_row() {
     var table = document.getElementById("calcTable"); 
     var total_rows = table.rows.length; 
@@ -56,14 +58,14 @@ function mean_of_row(row, start) {
 }
 
 function std_dev(sample) {
+    // takes standard deviation of array
     var sum = 0; 
-    for (s in sample) { sum += s; }
+    for (var i=0; i<sample.length; i++) {sum += sample[i]; }
     var mean = sum / sample.length;
 
-
     var stdev_sum = 0; 
-    for (s in sample) {stdev_sum += Math.pow(s - mean, 2); }
-    return Math.sqrt(stdev_sum / sample.length); 
+    for (var i=0; i<sample.length; i++) {stdev_sum += Math.pow(sample[i] - mean, 2); }
+    return Math.sqrt(stdev_sum / (sample.length - 1)); 
 }
 
 function row_to_array(row) {
