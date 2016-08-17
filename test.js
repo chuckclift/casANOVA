@@ -26,3 +26,16 @@ exports.grand_mean_simple = function(test) {
 
     test.done(); 
 }
+
+exports.single_factor_ssa = function(test) {
+    var arr = [[32, 22, 29, 29, 26, 38, 21],
+               [34, 33, 30, 29, 41, 31],
+               [20 ,30 ,32 ,26 ,32 ,29 ,27 ,30],
+               [28 ,31 ,30 ,28 ,33 ,32 ,39]]; 
+
+    var correct = 119.78571; 
+    var result = parseFloat(calc.single_factor_ssa(arr).toFixed(5)); 
+    test.equal(correct, result); 
+    test.done(); 
+ 
+}
