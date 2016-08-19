@@ -80,19 +80,23 @@ function grand_mean(data_2d) {
     return sum / all_values.length; 
 }
 
+function mean(data_1d) {
+    var sum = 0;
+    for (var i=0; i<data_1d.length; i++) {
+        sum += data_1d[i];
+    } 
+    return sum / data_1d.length; 
+}
+
 
 function single_factor_ssa(data_2d) {
     var sum = 0; 
     var ybar = grand_mean(data_2d); 
 
     for (var i=0; i < data_2d.length; i++) {
-        var row_sum = 0;
-        
-        for (var j=0; j < data_2d[i].length; j++) {
-            row_sum += data_2d[i][j]; 
-        } 
+        var row_mean = mean(data_2d[i]); 
         var row_length = data_2d[i].length; 
-        var row_mean = row_sum / row_length; 
+
         sum += row_length * Math.pow(row_mean - ybar, 2);  
     }
     return sum; 
@@ -101,9 +105,7 @@ function single_factor_ssa(data_2d) {
 function single_factor_sse(data_2d) {
     var sum = 0; 
     for (var i=0; i<data_2d.length; i++) {
-        var row_sum = 0;
-        for (var s=0; s<data_2d[i].length; s++) {row_sum += data_2d[i][s]; }
-        var row_average = row_sum / data_2d[i].length; 
+        var row_average = mean(data_2d[i]); 
 
         for (var j=0; j<data_2d[i].length; j++) {
             sum += Math.pow(data_2d[i][j] - row_average, 2); 
