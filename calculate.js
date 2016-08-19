@@ -1,6 +1,7 @@
 exports.std_dev = std_dev; 
 exports.grand_mean = grand_mean; 
 exports.single_factor_ssa = single_factor_ssa; 
+exports.single_factor_sse = single_factor_sse; 
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -97,3 +98,16 @@ function single_factor_ssa(data_2d) {
     return sum; 
 }
 
+function single_factor_sse(data_2d) {
+    var sum = 0; 
+    for (var i=0; i<data_2d.length; i++) {
+        var row_sum = 0;
+        for (var s=0; s<data_2d[i].length; s++) {row_sum += data_2d[i][s]; }
+        var row_average = row_sum / data_2d[i].length; 
+
+        for (var j=0; j<data_2d[i].length; j++) {
+            sum += Math.pow(data_2d[i][j] - row_average, 2); 
+        }
+    }
+    return sum; 
+}
