@@ -53,3 +53,40 @@ exports.single_factor_sse = function(test) {
  
 }
 
+exports.single_factor_anova = function(test) {
+    var arr = [[32, 22, 29, 29, 26, 38, 21],
+               [34, 33, 30, 29, 41, 31],
+               [20 ,30 ,32 ,26 ,32 ,29 ,27 ,30],
+               [28 ,31 ,30 ,28 ,33 ,32 ,39]]; 
+    var anova = calc.single_factor_anova(arr);
+    test.equal(anova.c, 4); 
+    test.equal(anova.n, 28);
+    
+        
+    var sse = 496.07143; 
+    var result_sse = parseFloat(anova.sse.toFixed(5)); 
+    test.equal(sse, result_sse); 
+
+    var ssa = 119.78571; 
+    var result_ssa = parseFloat(anova.ssa.toFixed(5));
+    test.equal(ssa, result_ssa); 
+
+    var sst = 615.85714;
+    var result_sst = parseFloat(anova.sst.toFixed(5)); 
+    test.equal(sst, result_sst);
+
+    var msa = 39.92857;
+    var result_msa = parseFloat(anova.msa.toFixed(5));
+    test.equal(msa, result_msa);
+
+    var mse = 20.66964; 
+    var result_mse = parseFloat(anova.mse.toFixed(5));
+    test.equal(mse, result_mse);
+
+
+    var f = 1.93175;  
+    var result_f = parseFloat(anova.f.toFixed(5));
+    test.equal(f, result_f); 
+    
+    test.done(); 
+}

@@ -2,6 +2,7 @@ exports.std_dev = std_dev;
 exports.grand_mean = grand_mean; 
 exports.single_factor_ssa = single_factor_ssa; 
 exports.single_factor_sse = single_factor_sse; 
+exports.single_factor_anova = single_factor_anova; 
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -112,4 +113,21 @@ function single_factor_sse(data_2d) {
         }
     }
     return sum; 
+}
+
+function single_factor_anova(data_2d) {
+    var anova = {};
+    c = data_2d.length; // returns number of samples(rows)
+    n =  [].concat.apply([], data_2d).length; 
+    
+    anova.c = c;
+    anova.n = n; 
+    anova.sse = single_factor_sse(data_2d); 
+    anova.ssa = single_factor_ssa(data_2d); 
+    anova.sst = anova.sse + anova.ssa; 
+
+    anova.msa = anova.ssa / (c - 1);
+    anova.mse = anova.sse / (n - c);  
+    anova.f = anova.msa / anova.mse;
+    return anova; 
 }
