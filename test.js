@@ -36,6 +36,15 @@ exports.single_factor_ssa = function(test) {
     var correct = 119.78571; 
     var result = parseFloat(calc.single_factor_ssa(arr).toFixed(5)); 
     test.equal(correct, result); 
+
+    var arr2 = [[0, 100, 10, 400, 30],
+                [23, 11, 4241, 2],
+                [324, 22, 1, 0.5]]; 
+    var correct2 =  2609994.37019; 
+    var result2 = parseFloat(calc.single_factor_ssa(arr2).toFixed(5));
+    test.equal(correct2, result2); 
+
+
     test.done(); 
  
 }
