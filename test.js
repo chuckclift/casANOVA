@@ -58,6 +58,14 @@ exports.single_factor_sse = function(test) {
     var correct = 496.07143; 
     var result = parseFloat(calc.single_factor_sse(arr).toFixed(5)); 
     test.equal(correct, result); 
+
+
+    var arr2 = [[0, 100, 10, 400, 30],
+                [23, 11, 4241, 2],
+                [324, 22, 1, 0.5]]; 
+    var correct2 = 13601504.9375; 
+    var result2 = parseFloat(calc.single_factor_sse(arr2).toFixed(4));
+    test.equal(correct2, result2); 
     test.done(); 
  
 }
