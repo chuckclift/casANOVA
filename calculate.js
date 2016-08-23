@@ -3,6 +3,7 @@ exports.grand_mean = grand_mean;
 exports.single_factor_ssa = single_factor_ssa; 
 exports.single_factor_sse = single_factor_sse; 
 exports.single_factor_anova = single_factor_anova; 
+exports.two_factor_ssa = two_factor_ssa; 
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -130,4 +131,15 @@ function single_factor_anova(data_2d) {
     anova.mse = anova.sse / (n - c);  
     anova.f = anova.msa / anova.mse;
     return anova; 
+}
+
+function two_factor_ssa(data_2d) {
+    var ybar = grand_mean(data_2d); 
+    var sum = 0; 
+    for (var i=0; i < data_2d.length; i++) {
+        sum += Math.pow(mean(data_2d[i]) - ybar, 2); 
+    }
+    var c = data_2d[0].length; 
+    return c * sum;  
+    
 }
