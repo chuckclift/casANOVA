@@ -4,6 +4,7 @@ exports.single_factor_ssa = single_factor_ssa;
 exports.single_factor_sse = single_factor_sse; 
 exports.single_factor_anova = single_factor_anova; 
 exports.two_factor_ssa = two_factor_ssa; 
+exports.two_factor_ssb = two_factor_ssb; 
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -142,4 +143,20 @@ function two_factor_ssa(data_2d) {
     var c = data_2d[0].length; 
     return c * sum;  
     
+}
+
+function two_factor_ssb(data_2d) {
+    var ybar = grand_mean(data_2d); 
+    var sum = 0; 
+    for (var j=0; j < data_2d[0].length; j++) {
+        var column = [] 
+        for (var i=0; i < data_2d.length; i++) { 
+            column = column.concat(data_2d[i][j]);
+        } 
+
+        var column_mean = mean(column); 
+        sum += Math.pow(column_mean - ybar, 2); 
+    }
+    var r = data_2d.length; 
+    return r * sum; 
 }
