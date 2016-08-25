@@ -91,6 +91,14 @@ function mean(data_1d) {
     return sum / data_1d.length; 
 }
 
+function get_column(data_2d, i) {
+    column = []; // column.concat(data_2d[i][j]);
+    for (var v=0; v<data_2d.length; v++) {
+        column = column.concat(data_2d[v][i]); 
+    }
+    return column; 
+}
+
 
 function single_factor_ssa(data_2d) {
     var sum = 0; 
@@ -149,12 +157,7 @@ function two_factor_ssb(data_2d) {
     var ybar = grand_mean(data_2d); 
     var sum = 0; 
     for (var j=0; j < data_2d[0].length; j++) {
-        var column = [] 
-        for (var i=0; i < data_2d.length; i++) { 
-            column = column.concat(data_2d[i][j]);
-        } 
-
-        var column_mean = mean(column); 
+        var column_mean = mean(get_column(data_2d, j));
         sum += Math.pow(column_mean - ybar, 2); 
     }
     var r = data_2d.length; 

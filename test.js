@@ -133,3 +133,4 @@ exports.two_factor_ssb = function(test) {
     test.equal(correct, result);
     test.done()
 }
+
