@@ -5,6 +5,8 @@ exports.single_factor_sse = single_factor_sse;
 exports.single_factor_anova = single_factor_anova; 
 exports.two_factor_ssa = two_factor_ssa; 
 exports.two_factor_ssb = two_factor_ssb; 
+exports.two_factor_sse = two_factor_sse; 
+exports.two_factor_anova = two_factor_anova;
 
 function add_row() {
     var table = document.getElementById("calcTable"); 
@@ -162,4 +164,49 @@ function two_factor_ssb(data_2d) {
     }
     var r = data_2d.length; 
     return r * sum; 
+}
+
+function two_factor_sse(data_2d) {
+    var ybar = grand_mean(data_2d); 
+    var sum = 0; 
+    for (var i=0; i < data_2d.length; i++) {
+        for (var j=0; j < data_2d[0].length; j++) {
+            var column_mean = mean(get_column(data_2d, j)); 
+            var row_mean = mean(data_2d[i]); 
+            sum += Math.pow(data_2d[i][j] - row_mean - column_mean + ybar , 2) 
+        }
+    } 
+    return sum; 
+} 
+
+function two_factor_anova(data_2d) {
+    var anova = {};
+
+    r = data_2d.length; 
+    c = data_2d[0].length;
+
+    anova.r = r;
+    anova.c = c;
+    anova.n = [].concat.apply([], data_2d).length; 
+    
+    anova.ssa = two_factor_ssa(data_2d);
+    anova.ssb = two_factor_ssb(data_2d);
+    anova.sse = two_factor_sse(data_2d);
+    anova.sst = anova.ssa + anova.ssb + anova.sse;
+
+    console.log(anova.ssb); 
+
+    anova.rows_df = r - 1;
+    anova.columns_df = c - 1;
+    anova.error_df = (r - 1) * (c - 1);
+    anova.total_df = r * c - 1;
+
+    anova.msa = anova.ssa / (r - 1); 
+    anova.msb = anova.ssb / (c - 1); 
+    anova.mse = anova.sse / (c - 1) * (c - 1);  
+
+    anova.fa = anova.msa / anova.mse;  
+    anova.fb = anova.msb / anova.mse;  
+    
+    return anova; 
 }

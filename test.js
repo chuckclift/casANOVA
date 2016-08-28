@@ -134,3 +134,28 @@ exports.two_factor_ssb = function(test) {
     test.done()
 }
 
+exports.two_factor_sse = function(test) {
+    var arr = [[32, 29.1, 20.3, 30.8, 27.7],
+               [18.1, 19.7, 18.9, 19.9, 27.7],
+               [27, 27.2, 20.9, 31.4, 31.7],
+               [22.2, 19.1, 21.1, 18.4, 31.7] ]; 
+
+    var correct = 155.04500; 
+
+    var result = parseFloat(calc.two_factor_sse(arr).toFixed(5)); 
+    test.equal(correct, result);
+    test.done()
+}
+
+exports.two_factor_anova = function(test) {
+    var arr = [[32, 29.1, 20.3, 30.8, 27.7],
+               [18.1, 19.7, 18.9, 19.9, 27.7],
+               [27, 27.2, 20.9, 31.4, 31.7],
+               [22.2, 19.1, 21.1, 18.4, 31.7] ]; 
+
+    var anova = calc.two_factor_anova(arr); 
+    console.log(anova.ssb); 
+    test.done(); 
+
+    
+}
