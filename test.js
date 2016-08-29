@@ -154,8 +154,19 @@ exports.two_factor_anova = function(test) {
                [22.2, 19.1, 21.1, 18.4, 31.7] ]; 
 
     var anova = calc.two_factor_anova(arr); 
-    console.log(anova.ssb); 
-    test.done(); 
 
-    
+    var correct_ssa = 194.89750; 
+    var ssa_result = parseFloat(calc.two_factor_ssa(arr).toFixed(5)); 
+    test.equal(correct_ssa, ssa_result); 
+
+    var correct_ssb = 181.60700; 
+    var ssb_result = parseFloat(calc.two_factor_ssb(arr).toFixed(5)); 
+    test.equal(correct_ssb, ssb_result); 
+
+    var correct_sse = 155.04500; 
+    var sse_result = parseFloat(calc.two_factor_sse(arr).toFixed(5)); 
+    test.equal(correct_sse, sse_result); 
+
+
+    test.done(); 
 }

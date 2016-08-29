@@ -194,8 +194,6 @@ function two_factor_anova(data_2d) {
     anova.sse = two_factor_sse(data_2d);
     anova.sst = anova.ssa + anova.ssb + anova.sse;
 
-    console.log(anova.ssb); 
-
     anova.rows_df = r - 1;
     anova.columns_df = c - 1;
     anova.error_df = (r - 1) * (c - 1);
