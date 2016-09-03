@@ -35,6 +35,23 @@ function add_column() {
     }
 }
 
+function read_table(table, start_row, start_column) {
+    var columns = table.rows[0].children.length;
+    var rows = table.rows.length;
+    var data_2d = new Array(rows);
+
+    for (var i = start_row; i < rows; i++) {
+        data_2d[i] = []; 
+        for (var j = start_column; j < columns; j++) {
+            var cell = table.rows[i].children[j].children[0].value;
+            if (parseFloat(cell)) {
+                data_2d[i] = data_2d[i].concat([cell]); 
+            } 
+        }
+    }
+    return data_2d; 
+}
+
 function row_means() {
     var table = document.getElementById("calcTable"); 
     var columns = table.rows[0].children.length; 
