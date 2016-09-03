@@ -45,11 +45,40 @@ function read_table(table, start_row, start_column) {
         for (var j = start_column; j < columns; j++) {
             var cell = table.rows[i].children[j].children[0].value;
             if (parseFloat(cell)) {
-                data_2d[i] = data_2d[i].concat([cell]); 
+                data_2d[i] = data_2d[i].concat([parseFloat(cell)]); 
             } 
         }
     }
     return data_2d; 
+}
+
+function update_anova(input_table_id, output_id) {
+    var table = document.getElementById(input_table_id);
+    var data_2d = read_table(table, 0, 1); 
+    var anova = single_factor_anova(data_2d);
+
+    var row_head = "<tr><td>source of Variation</td><td>Sum of Squares</td><td>df</td><td>Mean Square</td><td>F</td></tr>"
+    // row 1: regression 
+    var reg = "<td>Regression (explained)</td>"; 
+    var ssr = "<td>" + anova.ssa + "</td>"; 
+    var df_reg = "<td>" + (anova.c - 1) + "</td>"; 
+    var mse = "<td>" + anova.mse + "</td>"; 
+    var f = "<td>" + anova.f + "</td>"; 
+    var regression = "<tr>" + reg + ssr + df_reg + mse + f + "</tr>"; 
+
+    // row2: residual
+    var res = "<td>Residual (unexplained)</td>"; 
+    var sse = "<td>" + anova.sse + "</td>"; 
+    var df_res = "<td>" + (anova.n - anova.c - 2) + "</td>"; 
+    var residual = "<tr>" + res + sse + df_res + "</tr>"; 
+
+    // row3: totals
+    var totals = "<tr><td>Total</td><td>" + anova.sst + "</td><td>" 
+                                          + (anova.n - 1) + "</td></tr>"; 
+    
+    var output = document.getElementById(output_id);
+    output.innerHTML = "<table>" + row_head + regression + residual 
+                                            + totals  + "</table>"; 
 }
 
 function row_means() {
