@@ -8,8 +8,8 @@ exports.two_factor_ssb = two_factor_ssb;
 exports.two_factor_sse = two_factor_sse; 
 exports.two_factor_anova = two_factor_anova;
 
-function add_row() {
-    var table = document.getElementById("calcTable"); 
+function add_row(button) {
+    var table = button.parentNode.getElementsByTagName("table")[0]; 
     var total_rows = table.rows.length; 
 
     var row = table.insertRow(total_rows);
@@ -24,8 +24,8 @@ function add_row() {
     c.innerHTML = "<p>sample " + (total_rows + 1) + "</p>" ; 
 }
 
-function add_column() {
-    var table = document.getElementById("calcTable"); 
+function add_column(button) {
+    var table = button.parentNode.getElementsByTagName("table")[0]; 
     var rows = table.rows.length; 
     var columns = table.rows[0].children.length; 
 
@@ -53,7 +53,7 @@ function read_table(table, start_row, start_column) {
 }
 
 function update_tables() {
-    update_single_factor_anova("calcTable", "anova_results");
+    update_single_factor_anova("sfaTable", "sfa_results");
 }
 
 function update_single_factor_anova(input_table_id, output_id) {
