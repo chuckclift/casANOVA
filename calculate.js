@@ -8,6 +8,7 @@ exports.two_factor_ssb = two_factor_ssb;
 exports.two_factor_sse = two_factor_sse; 
 exports.two_factor_anova = two_factor_anova;
 
+// working with tables
 function add_row(button) {
     var table = button.parentNode.getElementsByTagName("table")[0]; 
     var total_rows = table.rows.length; 
@@ -35,6 +36,19 @@ function add_column(button) {
     }
 }
 
+function add_tfa_column(button) {
+    var table = button.parentNode.getElementsByTagName("table")[0]; 
+    var rows = table.rows.length; 
+    var columns = table.rows[0].children.length; 
+
+    var c = table.rows[0].insertCell(columns);
+    c.innerHTML = "<p>Factor " + columns   + "</p>"; 
+    for (var r=1; r<rows; r++) {
+        var c = table.rows[r].insertCell(columns);
+        c.innerHTML = "<input onChange=\"update_tables()\" type=\"number\">"; 
+    }
+}
+
 function read_table(table, start_row, start_column) {
     var columns = table.rows[0].children.length;
     var rows = table.rows.length;
@@ -52,6 +66,22 @@ function read_table(table, start_row, start_column) {
     return data_2d; 
 }
 
+function data_to_table(data_2d) {
+    var table = "<table>"; 
+    console.log(data_2d); 
+    for (var i=0; i < data_2d.length; i++) {
+
+        table += "<tr>"; 
+        for (var j = 0; j < data_2d[i].length; j++) {
+            table += "<td>" + data_2d[i][j] + "</td>"; 
+        
+        }
+        table += "</tr>"; 
+    }
+    table += "</table>"
+    return table; 
+}
+
 function update_tables() {
     update_single_factor_anova("sfaTable", "sfa_results");
 }
@@ -61,31 +91,25 @@ function update_single_factor_anova(input_table_id, output_id) {
     var data_2d = read_table(table, 0, 1); 
     var anova = single_factor_anova(data_2d);
 
-    var row_head = "<tr><td>Source of Variation</td><td>Sum of Squares</td>" + 
-                   "<td>df</td><td>Mean Square</td><td>F</td></tr>"
-
     // row 1: regression 
-    var reg = "<td>Regression (explained)</td>"; 
-    var ssr = "<td>" + anova.ssa.toFixed(5) + "</td>"; 
-    var df_reg = "<td>" + (anova.c - 1) + "</td>"; 
-    var mse = "<td>" + anova.msa.toFixed(5) + "</td>"; 
-    var f = "<td>" + anova.f.toFixed(5) + "</td>"; 
-    var regression = "<tr>" + reg + ssr + df_reg + mse + f + "</tr>"; 
+    var ssa = anova.ssa.toFixed(5) ; 
+    var df_reg =  (anova.c - 1) ; 
+    var msa = anova.msa.toFixed(5) ; 
+    var f =  anova.f.toFixed(5); 
 
     // row2: residual
-    var res = "<td>Residual (unexplained)</td>"; 
-    var sse = "<td>" + anova.sse.toFixed(5) + "</td>"; 
-    var df_res = "<td>" + (anova.n - anova.c - 2) + "</td>"; 
-    var mse = "<td>" + anova.mse.toFixed(5) + "</td>"; 
-    var residual = "<tr>" + res + sse + df_res + mse + "</tr>"; 
+    var sse =  anova.sse.toFixed(5) ; 
+    var df_res =  (anova.n - anova.c - 2) ; 
+    var mse =  anova.mse.toFixed(5) ; 
 
-    // row3: totals
-    var totals = "<tr><td>Total</td><td>" + anova.sst.toFixed(5) + "</td><td>" 
-                                          + (anova.n - 1) + "</td></tr>"; 
+    var results_table = [
+       ["Source of Variation", "Sum of Squares", "df", "Mean Square", "F"],
+       ["Regression (explained)", ssa, df_reg, msa, f], 
+       ["Residual (unexplained)", sse, df_res, mse], 
+       ["Total",  anova.sst.toFixed(5), anova.n - 1]]; 
     
     var output = document.getElementById(output_id);
-    output.innerHTML = "<table>" + row_head + regression + residual 
-                                            + totals  + "</table>"; 
+    output.innerHTML = data_to_table(results_table);  
 }
 
 
